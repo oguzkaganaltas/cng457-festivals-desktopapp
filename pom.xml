@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.mustafaoguz.cng457festivalsdesktopapp/com.mustafaoguz.cng457festivalsdesktopapp.HelloApplication
+                                com.mustafaoguz.cng457festivalsdesktopapp/com.mustafaoguz.cng457festivalsdesktopapp.FestivalManagerDesktopApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
