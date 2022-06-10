@@ -1,8 +1,17 @@
 package com.mustafaoguz.cng457festivalsdesktopapp;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Main page.
@@ -51,6 +60,19 @@ public class MainController {
         addConcertRadioButton.setDisable(!addConcertRadioButton.isDisabled());
         addFestivalRunRadioButton.setDisable(!addFestivalRunRadioButton.isDisabled());
         goButton.setDisable(!goButton.isDisabled());
+    }
+    
+    @FXML
+    private void onGoButtonClick(ActionEvent event) throws IOException {
+
+        if (addFestivalRunRadioButton.isSelected()){
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("festivalRun-view.fxml")));
+            Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
+            s.setTitle("Festival");
+            s.setScene(new Scene(root, 279, 236));
+            s.show();
+        }
+
     }
 
 
