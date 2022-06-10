@@ -7,17 +7,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="14.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="14.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mustafaoguz.cng457festivalsdesktopapp.MainController">
    <children>
       <Label text="Festival Manager">
          <font>
             <Font size="31.0" />
          </font>
       </Label>
-      <RadioButton fx:id="addFestivalRunRadioButton" mnemonicParsing="false" text="Add Festival Run" />
-      <RadioButton fx:id="addConcertRadioButton" mnemonicParsing="false" text="Add Concert" />
-      <RadioButton fx:id="addStatisticsRadioButton" mnemonicParsing="false" text="Statistics" />
+      <RadioButton fx:id="addFestivalRunRadioButton" mnemonicParsing="false" onAction="#onAddFestivalRunRadioButtonPressed" text="Add Festival Run" />
+      <RadioButton fx:id="addConcertRadioButton" mnemonicParsing="false" onAction="#onAddConcertRadioButtonPressed" text="Add Concert" />
+      <RadioButton fx:id="addStatisticsRadioButton" mnemonicParsing="false" onAction="#onAddStatisticsRadioButtonPressed" text="Statistics" />
       <Button fx:id="goButton" mnemonicParsing="false" text="Go" />
    </children>
    <padding>
