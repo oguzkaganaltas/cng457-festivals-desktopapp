@@ -35,46 +35,30 @@ public class ConcertController {
 
     }
 
-    public void initialize() throws IOException, ParseException{
-        String response = "";
-        HttpURLConnection connection = (HttpURLConnection) new URL("http://localhost:8080/getallfestivals").openConnection();
+    public void initialize() throws IOException, ParseException, org.json.simple.parser.ParseException {
+        StringBuilder response = new StringBuilder();
+        HttpURLConnection connection = (HttpURLConnection)new URL("http://localhost:8080/getallfestivals").openConnection();
         connection.setRequestMethod("GET");
         int responsecode = connection.getResponseCode();
-
         if(responsecode == 200){
             Scanner scanner = new Scanner(connection.getInputStream());
             while(scanner.hasNextLine()){
-                response += scanner.nextLine();
+                response.append(scanner.nextLine());
             }
             scanner.close();
         }
 
         JSONParser parser = new JSONParser();
-        JSONArray array = (JSONArray) parser.parse(response);
-        for(int i=0; i<array.size(); i++){
+        JSONArray array = (JSONArray) parser.parse(response.toString());
+        for (Object o : array) {
             try {
-                JSONObject temp = (JSONObject) array.get(i);
+                JSONObject temp = (JSONObject) o;
                 festivalComboBox.getItems().add(temp.get("festivalId") + "-" + temp.get("festivalName"));
-            }
-            catch(Exception e){
-                String response2 = "";
-                HttpURLConnection connection2 = (HttpURLConnection)new URL("http://localhost:8080/getdepartment/" + array.get(i)).openConnection();
-                connection2.setRequestMethod("GET");
-                int responsecode2 = connection2.getResponseCode();
-
-                if(responsecode2 == 200){
-                    Scanner scanner = new Scanner(connection2.getInputStream());
-                    while(scanner.hasNextLine()){
-                        response2 += scanner.nextLine();
-                    }
-                    scanner.close();
-                }
-                JSONObject object = (JSONObject) parser.parse(response2);
-                festivalComboBox.getItems().add(object.get("festivalId") + "-" + object.get("festivalName"));
+                System.out.println(temp.get("festivalId") + "-" + temp.get("festivalName"));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
-
-
     }
 
 }
