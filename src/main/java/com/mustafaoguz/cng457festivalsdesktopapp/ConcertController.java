@@ -7,8 +7,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -36,7 +38,50 @@ public class ConcertController {
     private ComboBox performerComboBox;
 
     public void addButtonPressed(ActionEvent event) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL("http://localhost:8080/addconcert").openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+        connection.setRequestProperty("Accept", "application/json; utf-8");
+        connection.setDoInput(true); //Set the DoInput flag to true if you intend to use the URL connection for input
+        connection.setDoOutput(true);
+        String festivalRunId = festivalRunComboBox.getValue().toString().split("-")[0];
+        String performerId = performerComboBox.getValue().toString().split("-")[0];
 
+
+        JSONObject concert = new JSONObject();
+
+        JSONObject festivalRun = new JSONObject();
+        JSONObject performer = new JSONObject();
+        festivalRun.put("festRunId",festivalRunId);
+        performer.put("performerId",performerId);
+
+        concert.put("festivalRun",festivalRun);
+        concert.put("performer", performer);
+        concert.put("description", descriptionTextField.getText());
+        concert.put("duration", durationTextField.getText());
+        concert.put("date", datePickerConcert.getValue().toString());
+        concert.put("name", nameTextField.getText());
+
+
+        System.out.println(concert.toJSONString());
+        try(OutputStream os = connection.getOutputStream()){
+            byte[] input = concert.toJSONString().getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        String response = "";
+        int responsecode = connection.getResponseCode();
+        if(responsecode == 200){
+            Scanner scanner = new Scanner(connection.getInputStream());
+            while(scanner.hasNextLine()){
+                response += scanner.nextLine();
+            }
+            scanner.close();
+        }
+
+        System.out.println(response);
     }
 
     public void isFestivalSelected(ActionEvent event) throws IOException, org.json.simple.parser.ParseException {
