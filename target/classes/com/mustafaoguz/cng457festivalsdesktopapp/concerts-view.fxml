@@ -10,13 +10,12 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mustafaoguz.cng457festivalsdesktopapp.ConcertController">
    <children>
-      <ComboBox fx:id="festivalComboBox" layoutX="273.0" layoutY="62.0" prefWidth="150.0" />
+      <ComboBox fx:id="festivalComboBox" layoutX="273.0" layoutY="62.0" onAction="#isFestivalSelected" prefWidth="150.0" />
       <Label layoutX="165.0" layoutY="66.0" prefHeight="17.0" prefWidth="76.0" text="Festival List" />
       <Label layoutX="165.0" layoutY="110.0" text="Festival Run List" />
-      <ComboBox layoutX="273.0" layoutY="106.0" prefWidth="150.0" />
+      <ComboBox fx:id="festivalRunComboBox" layoutX="273.0" layoutY="106.0" prefWidth="150.0" />
       <GridPane layoutX="165.0" layoutY="152.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -38,7 +37,7 @@
             <TextField fx:id="durationTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Date" GridPane.rowIndex="3" />
             <Label text="Performer" GridPane.rowIndex="4" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="performerComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <DatePicker fx:id="datePickerConcert" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
