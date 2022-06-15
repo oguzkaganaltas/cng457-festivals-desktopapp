@@ -132,9 +132,22 @@ public class ConcertController {
             try {
                 JSONObject temp = (JSONObject) o;
                 festivalComboBox.getItems().add(temp.get("festivalId") + "-" + temp.get("festivalName"));
-                System.out.println(temp.get("festivalId") + "-" + temp.get("festivalName"));
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                StringBuilder responseCatch = new StringBuilder();
+                HttpURLConnection connectionCatch = (HttpURLConnection)new URL("http://localhost:8080/getfestival/"+o.toString()).openConnection();
+                connectionCatch.setRequestMethod("GET");
+                int responseCodeCatch = connectionCatch.getResponseCode();
+                if(responseCodeCatch == 200){
+                    Scanner scannerCatch = new Scanner(connectionCatch.getInputStream());
+                    while(scannerCatch.hasNextLine()){
+                        responseCatch.append(scannerCatch.nextLine());
+                    }
+                    scannerCatch.close();
+                }
+
+                JSONParser parserCatch = new JSONParser();
+                JSONObject objectCatch = (JSONObject) parserCatch.parse(responseCatch.toString());
+                festivalComboBox.getItems().add(objectCatch.get("festivalId") + "-" + objectCatch.get("festivalName"));
             }
         }
 
@@ -157,9 +170,22 @@ public class ConcertController {
             try {
                 JSONObject tempPerformer = (JSONObject) p;
                 performerComboBox.getItems().add(tempPerformer.get("performerId") + "-" + tempPerformer.get("name")+" " + tempPerformer.get("surname"));
-                System.out.println(tempPerformer.get("performerId") + "-" + tempPerformer.get("name")+" " + tempPerformer.get("surname"));
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                StringBuilder responseCatch = new StringBuilder();
+                HttpURLConnection connectionCatch = (HttpURLConnection)new URL("http://localhost:8080/getperformer/"+p.toString()).openConnection();
+                connectionCatch.setRequestMethod("GET");
+                int responseCodeCatch = connectionCatch.getResponseCode();
+                if(responseCodeCatch == 200){
+                    Scanner scannerCatch = new Scanner(connectionCatch.getInputStream());
+                    while(scannerCatch.hasNextLine()){
+                        responseCatch.append(scannerCatch.nextLine());
+                    }
+                    scannerCatch.close();
+                }
+
+                JSONParser parserCatch = new JSONParser();
+                JSONObject objectCatch = (JSONObject) parserCatch.parse(responseCatch.toString());
+                performerComboBox.getItems().add(objectCatch.get("performerId") + "-" + objectCatch.get("name")+" " + objectCatch.get("surname"));
             }
         }
 
