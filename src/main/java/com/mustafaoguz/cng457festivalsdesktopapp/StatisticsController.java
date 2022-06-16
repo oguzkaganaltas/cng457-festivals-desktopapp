@@ -118,7 +118,7 @@ public class StatisticsController {
     public void onReturnButtonClick(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
         Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
-        s.setScene(new Scene(root, 248, 194));
+        s.setScene(new Scene(root));
         s.show();
     }
 }

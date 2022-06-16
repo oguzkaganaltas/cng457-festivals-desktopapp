@@ -2,6 +2,10 @@ package com.mustafaoguz.cng457festivalsdesktopapp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -12,8 +16,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
+import java.util.Objects;
 import java.util.Scanner;
 
+import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -206,5 +212,10 @@ public class ConcertController {
 
 
     }
-
+    public void onReturnButtonClick(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
+        Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
+        s.setScene(new Scene(root));
+        s.show();
+    }
 }
