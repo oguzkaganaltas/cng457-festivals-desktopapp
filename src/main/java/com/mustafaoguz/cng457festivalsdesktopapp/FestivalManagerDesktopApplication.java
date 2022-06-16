@@ -10,7 +10,7 @@ import java.io.IOException;
 public class FestivalManagerDesktopApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(FestivalManagerDesktopApplication.class.getResource("statistics-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(FestivalManagerDesktopApplication.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("TRNC FestMan");
         stage.setScene(scene);

@@ -47,7 +47,8 @@
             <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
          </padding>
       </GridPane>
-      <Button layoutX="99.0" layoutY="286.0" mnemonicParsing="false" onAction="#addButtonPressed" text="Add" />
+      <Button layoutX="118.0" layoutY="286.0" mnemonicParsing="false" onAction="#addButtonPressed" text="Add" />
+      <Button layoutX="14.0" layoutY="286.0" mnemonicParsing="false" onAction="#onReturnButtonClick" text="Return" />
    </children>
    <padding>
       <Insets bottom="14.0" />
