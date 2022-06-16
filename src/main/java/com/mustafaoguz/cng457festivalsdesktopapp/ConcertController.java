@@ -88,6 +88,7 @@ public class ConcertController {
         }
 
         System.out.println(response);
+        onReturnButtonClick(event);
     }
 
     public void isFestivalSelected(ActionEvent event) throws IOException, org.json.simple.parser.ParseException {
@@ -209,12 +210,11 @@ public class ConcertController {
                 performerComboBox.getItems().add(objectCatch.get("performerId") + "-" + objectCatch.get("name")+" " + objectCatch.get("surname"));
             }
         }
-
-
     }
     public void onReturnButtonClick(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
         Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
+        s.setTitle("TRNC FestMan");
         s.setScene(new Scene(root));
         s.show();
     }

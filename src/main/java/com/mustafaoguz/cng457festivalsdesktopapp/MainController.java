@@ -68,21 +68,21 @@ public class MainController {
         if (addFestivalRunRadioButton.isSelected()){
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("festivalRun-view.fxml")));
             Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
-            s.setTitle("Festival");
+            s.setTitle("Add Festival Run");
             s.setScene(new Scene(root));
             s.show();
         }
         else if(addConcertRadioButton.isSelected()){
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("concerts-view.fxml")));
             Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
-            s.setTitle("Festival");
+            s.setTitle("Add Concert");
             s.setScene(new Scene(root));
             s.show();
         }
         else{
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("statistics-view.fxml")));
             Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
-            s.setTitle("Festival");
+            s.setTitle("Statistics");
             s.setScene(new Scene(root));
             s.show();
         }

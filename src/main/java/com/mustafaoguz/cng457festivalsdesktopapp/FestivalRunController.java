@@ -31,14 +31,10 @@ public class FestivalRunController {
     private TextField durationTextField;
     @FXML
     private DatePicker dateTimePicker;
-    @FXML
-    private ListView organisersList;
-    @FXML
-    private Button addButton;
-    @FXML
-    private Button returnButton;
+
 
     public void initialize() throws IOException, ParseException {
+
         StringBuilder response = new StringBuilder();
         HttpURLConnection connection = (HttpURLConnection)new URL("http://localhost:8080/getallfestivals").openConnection();
         connection.setRequestMethod("GET");
@@ -57,9 +53,22 @@ public class FestivalRunController {
             try {
                 JSONObject temp = (JSONObject) o;
                 festivalsComboBox.getItems().add(temp.get("festivalId") + "-" + temp.get("festivalName"));
-                System.out.println(temp.get("festivalId") + "-" + temp.get("festivalName"));
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                StringBuilder responseCatch = new StringBuilder();
+                HttpURLConnection connectionCatch = (HttpURLConnection)new URL("http://localhost:8080/getfestival/"+o.toString()).openConnection();
+                connectionCatch.setRequestMethod("GET");
+                int responseCodeCatch = connectionCatch.getResponseCode();
+                if(responseCodeCatch == 200){
+                    Scanner scannerCatch = new Scanner(connectionCatch.getInputStream());
+                    while(scannerCatch.hasNextLine()){
+                        responseCatch.append(scannerCatch.nextLine());
+                    }
+                    scannerCatch.close();
+                }
+
+                JSONParser parserCatch = new JSONParser();
+                JSONObject objectCatch = (JSONObject) parserCatch.parse(responseCatch.toString());
+                festivalsComboBox.getItems().add(objectCatch.get("festivalId") + "-" + objectCatch.get("festivalName"));
             }
         }
     }
@@ -100,14 +109,15 @@ public class FestivalRunController {
         }
 
         System.out.println(response);
-
+        onReturnButtonClick(event);
     }
 
     @FXML
     private void onReturnButtonClick(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
         Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
-        s.setScene(new Scene(root, 248, 194));
+        s.setTitle("TRNC FestMan");
+        s.setScene(new Scene(root));
         s.show();
     }
 
