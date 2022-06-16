@@ -33,85 +33,25 @@ public class StatisticsController {
 
     public void showButtonPressed(ActionEvent event) throws IOException, ParseException {
 
-        if(festivalCheckBox.isSelected()){
-            festivalListView.getItems().clear();
-            StringBuilder responseFestival = new StringBuilder();
-            HttpURLConnection connectionFestival = (HttpURLConnection)new URL("http://localhost:8080/popularfestivals").openConnection();
-            connectionFestival.setRequestMethod("GET");
-            int responseCodeFestival = connectionFestival.getResponseCode();
-            if(responseCodeFestival == 200){
-                Scanner scanner = new Scanner(connectionFestival.getInputStream());
-                while(scanner.hasNextLine()){
-                    responseFestival.append(scanner.nextLine());
-                }
-                scanner.close();
-            }
-            System.out.println(responseFestival.toString());
-            JSONParser parserFestival = new JSONParser();
-            JSONArray arrayFestival = (JSONArray) parserFestival.parse(responseFestival.toString());
-            for (Object o : arrayFestival) {
-                try {
-                    JSONObject temp = (JSONObject) o;
-                    festivalListView.getItems().add(temp.get("festivalId") + "-" + temp.get("festivalName"));
-                } catch (Exception e) {
-                    StringBuilder responseCatch = new StringBuilder();
-                    HttpURLConnection connectionCatch = (HttpURLConnection)new URL("http://localhost:8080/getfestival/"+o.toString()).openConnection();
-                    connectionCatch.setRequestMethod("GET");
-                    int responseCodeCatch = connectionCatch.getResponseCode();
-                    if(responseCodeCatch == 200){
-                        Scanner scannerCatch = new Scanner(connectionCatch.getInputStream());
-                        while(scannerCatch.hasNextLine()){
-                            responseCatch.append(scannerCatch.nextLine());
-                        }
-                        scannerCatch.close();
-                    }
+        Runnable fillFestival = new StatisticsFestival(festivalCheckBox,festivalListView);
+        Thread festivalThread = new Thread(fillFestival);
 
-                    JSONParser parserCatch = new JSONParser();
-                    JSONObject objectCatch = (JSONObject) parserCatch.parse(responseCatch.toString());
-                    festivalListView.getItems().add(objectCatch.get("festivalId") + "-" + objectCatch.get("festivalName"));
-                }
+        Runnable fillConcert = new StatisticsConcert(concertCheckBox,concertListView);
+        Thread concertThread = new Thread(fillConcert);
+
+        if(festivalCheckBox.isSelected() && concertCheckBox.isSelected()){
+            festivalThread.start();
+            concertThread.start();
+        }
+        else{
+            if(festivalCheckBox.isSelected()){
+                festivalThread.start();
+            }
+            if(concertCheckBox.isSelected()){
+                concertThread.start();
             }
         }
-        if(concertCheckBox.isSelected()){
-            concertListView.getItems().clear();
-            StringBuilder responseConcert = new StringBuilder();
-            HttpURLConnection connectionConcert = (HttpURLConnection)new URL("http://localhost:8080/longestconcerts").openConnection();
-            connectionConcert.setRequestMethod("GET");
-            int responseCodeFestival = connectionConcert.getResponseCode();
-            if(responseCodeFestival == 200){
-                Scanner scanner = new Scanner(connectionConcert.getInputStream());
-                while(scanner.hasNextLine()){
 
-                    responseConcert.append(scanner.nextLine());
-                }
-                scanner.close();
-            }
-            System.out.println(responseConcert.toString());
-            JSONParser parserConcert = new JSONParser();
-            JSONArray arrayConcert = (JSONArray) parserConcert.parse(responseConcert.toString());
-            for (Object o : arrayConcert) {
-                try {
-                    JSONObject temp = (JSONObject) o;
-                    concertListView.getItems().add(temp.get("eventId") + "-" + temp.get("name"));
-                } catch (Exception e) {
-                    StringBuilder responseCatch = new StringBuilder();
-                    HttpURLConnection connectionCatch = (HttpURLConnection)new URL("http://localhost:8080/getconcert/"+o.toString()).openConnection();
-                    connectionCatch.setRequestMethod("GET");
-                    int responseCodeCatch = connectionCatch.getResponseCode();
-                    if(responseCodeCatch == 200){
-                        Scanner scannerCatch = new Scanner(connectionCatch.getInputStream());
-                        while(scannerCatch.hasNextLine()){
-                            responseCatch.append(scannerCatch.nextLine());
-                        }
-                        scannerCatch.close();
-                    }
-
-                    JSONParser parserCatch = new JSONParser();
-                    JSONObject objectCatch = (JSONObject) parserCatch.parse(responseCatch.toString());
-                    concertListView.getItems().add(objectCatch.get("eventId") + "-" + objectCatch.get("name"));
-                }
-            }
-        }
     }
 
 
