@@ -85,6 +85,7 @@ public class ConcertController {
     }
 
     public void isFestivalSelected(ActionEvent event) throws IOException, org.json.simple.parser.ParseException {
+        festivalRunComboBox.getItems().clear();
         StringBuilder response = new StringBuilder();
         String selectedItem = festivalComboBox.getValue().toString();
         String festivalRunId = selectedItem.split("-")[0];
@@ -108,7 +109,21 @@ public class ConcertController {
                 festivalRunComboBox.getItems().add(temp.get("festRunId")+"-"+temp.get("date"));
                 System.out.println(temp.get("festRunId")+"-"+temp.get("date"));
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                StringBuilder responseCatch = new StringBuilder();
+                HttpURLConnection connectionCatch = (HttpURLConnection)new URL("http://localhost:8080/getfestivalrun/"+o.toString()).openConnection();
+                connectionCatch.setRequestMethod("GET");
+                int responseCodeCatch = connectionCatch.getResponseCode();
+                if(responseCodeCatch == 200){
+                    Scanner scannerCatch = new Scanner(connectionCatch.getInputStream());
+                    while(scannerCatch.hasNextLine()){
+                        responseCatch.append(scannerCatch.nextLine());
+                    }
+                    scannerCatch.close();
+                }
+
+                JSONParser parserCatch = new JSONParser();
+                JSONObject objectCatch = (JSONObject) parserCatch.parse(responseCatch.toString());
+                festivalRunComboBox.getItems().add(objectCatch.get("festRunId") + "-" + objectCatch.get("date"));
             }
         }
     }
