@@ -14,7 +14,9 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Scanner;
 
-
+/**
+ * thread for concert stats object
+ */
 public class StatisticsConcert implements Runnable {
 
     @FXML
@@ -24,6 +26,9 @@ public class StatisticsConcert implements Runnable {
         this.concertListView = concertListView;
     }
 
+    /**
+     * statistics operation thread.
+     */
     @Override
     public void run() {
         concertListView.getItems().clear();

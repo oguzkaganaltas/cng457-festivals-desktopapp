@@ -13,7 +13,9 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Scanner;
-
+/**
+ * thread for festival stats object
+ */
 public class StatisticsFestival implements Runnable{
 
     @FXML
@@ -23,6 +25,9 @@ public class StatisticsFestival implements Runnable{
         this.festivalListView = festivalListView;
     }
 
+    /**
+     * festial run operation thread
+     */
     @Override
     public void run() {
         festivalListView.getItems().clear();
