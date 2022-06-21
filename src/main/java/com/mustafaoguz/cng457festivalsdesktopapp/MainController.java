@@ -61,7 +61,12 @@ public class MainController {
         addFestivalRunRadioButton.setDisable(!addFestivalRunRadioButton.isDisabled());
         goButton.setDisable(!goButton.isDisabled());
     }
-    
+
+    /**
+     * handles go button.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void onGoButtonClick(ActionEvent event) throws IOException {
 

@@ -15,6 +15,9 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * controller class for statistics
+ */
 public class StatisticsController {
     @FXML
     private CheckBox concertCheckBox;
@@ -25,6 +28,11 @@ public class StatisticsController {
     @FXML
     private ListView concertListView;
 
+    /**
+     * handles the action after show button is pressed
+     *
+     * @param event
+     */
     public void showButtonPressed(ActionEvent event){
 
         Runnable fillFestival = new StatisticsFestival(festivalListView);

@@ -25,7 +25,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 
-
+/**
+ * controller class for concert object
+ */
 public class ConcertController {
 
     @FXML
@@ -43,6 +45,11 @@ public class ConcertController {
     @FXML
     private ComboBox performerComboBox;
 
+    /**
+     * handles add button event
+     * @param event
+     * @throws IOException
+     */
     public void addButtonPressed(ActionEvent event) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL("http://localhost:8080/addconcert").openConnection();
         connection.setRequestMethod("POST");
@@ -91,6 +98,12 @@ public class ConcertController {
         onReturnButtonClick(event);
     }
 
+    /**
+     * checks if festival is selected and renders the scene accordingly.
+     * @param event
+     * @throws IOException
+     * @throws org.json.simple.parser.ParseException
+     */
     public void isFestivalSelected(ActionEvent event) throws IOException, org.json.simple.parser.ParseException {
         festivalRunComboBox.getItems().clear();
         StringBuilder response = new StringBuilder();
@@ -135,6 +148,12 @@ public class ConcertController {
         }
     }
 
+    /**
+     * wakes in the initialization of the screen
+     *
+     * @throws IOException
+     * @throws org.json.simple.parser.ParseException
+     */
     public void initialize() throws IOException, ParseException, org.json.simple.parser.ParseException {
         StringBuilder response = new StringBuilder();
         HttpURLConnection connection = (HttpURLConnection)new URL("http://localhost:8080/getallfestivals").openConnection();
@@ -211,6 +230,11 @@ public class ConcertController {
             }
         }
     }
+    /**
+     * handles return button event
+     * @param event
+     * @throws IOException
+     */
     public void onReturnButtonClick(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
         Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();

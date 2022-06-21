@@ -23,6 +23,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 
+/**
+ * controller class for festival run object
+ */
 public class FestivalRunController {
 
     @FXML
@@ -33,6 +36,12 @@ public class FestivalRunController {
     private DatePicker dateTimePicker;
 
 
+    /**
+     * wakes in the initialization of the screen
+     *
+     * @throws IOException
+     * @throws ParseException
+     */
     public void initialize() throws IOException, ParseException {
 
         StringBuilder response = new StringBuilder();
@@ -73,6 +82,11 @@ public class FestivalRunController {
         }
     }
 
+    /**
+     * handles add button event
+     * @param event
+     * @throws IOException
+     */
     public void addButtonPressed(ActionEvent event) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL("http://localhost:8080/addfestivalrun").openConnection();
         connection.setRequestMethod("POST");
@@ -112,6 +126,11 @@ public class FestivalRunController {
         onReturnButtonClick(event);
     }
 
+    /**
+     * handles return button event
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void onReturnButtonClick(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
