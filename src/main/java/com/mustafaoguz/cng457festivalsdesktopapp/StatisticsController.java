@@ -1,5 +1,6 @@
 package com.mustafaoguz.cng457festivalsdesktopapp;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,17 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class StatisticsController {
     @FXML
@@ -31,24 +25,26 @@ public class StatisticsController {
     @FXML
     private ListView concertListView;
 
-    public void showButtonPressed(ActionEvent event) throws IOException, ParseException {
+    public void showButtonPressed(ActionEvent event){
 
-        Runnable fillFestival = new StatisticsFestival(festivalCheckBox,festivalListView);
+        Runnable fillFestival = new StatisticsFestival(festivalListView);
         Thread festivalThread = new Thread(fillFestival);
 
-        Runnable fillConcert = new StatisticsConcert(concertCheckBox,concertListView);
+        Runnable fillConcert = new StatisticsConcert(concertListView);
         Thread concertThread = new Thread(fillConcert);
 
         if(festivalCheckBox.isSelected() && concertCheckBox.isSelected()){
-            festivalThread.start();
-            concertThread.start();
+
+            Platform.runLater(concertThread);
+            Platform.runLater(festivalThread);
+
         }
         else{
             if(festivalCheckBox.isSelected()){
-                festivalThread.start();
+                Platform.runLater(festivalThread);
             }
             if(concertCheckBox.isSelected()){
-                concertThread.start();
+                Platform.runLater(concertThread);
             }
         }
 

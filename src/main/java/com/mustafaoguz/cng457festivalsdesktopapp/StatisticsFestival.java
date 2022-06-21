@@ -17,12 +17,9 @@ import java.util.Scanner;
 public class StatisticsFestival implements Runnable{
 
     @FXML
-    private CheckBox festivalCheckBox;
-    @FXML
     private ListView festivalListView;
 
-    StatisticsFestival(CheckBox festivalCheckBox, ListView festivalListView){
-        this.festivalCheckBox = festivalCheckBox;
+    StatisticsFestival(ListView festivalListView){
         this.festivalListView = festivalListView;
     }
 
@@ -59,7 +56,6 @@ public class StatisticsFestival implements Runnable{
             }
             scanner.close();
         }
-        System.out.println(responseFestival.toString());
         JSONParser parserFestival = new JSONParser();
         JSONArray arrayFestival = null;
         try {
@@ -75,6 +71,7 @@ public class StatisticsFestival implements Runnable{
                 StringBuilder responseCatch = new StringBuilder();
                 HttpURLConnection connectionCatch = null;
                 try {
+                    System.out.println("http://localhost:8080/getfestival/"+o.toString());
                     connectionCatch = (HttpURLConnection)new URL("http://localhost:8080/getfestival/"+o.toString()).openConnection();
                 } catch (IOException ex) {
                     ex.printStackTrace();
