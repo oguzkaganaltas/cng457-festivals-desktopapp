@@ -18,12 +18,9 @@ import java.util.Scanner;
 public class StatisticsConcert implements Runnable {
 
     @FXML
-    private CheckBox concertCheckBox;
-    @FXML
     private ListView concertListView;
 
-    StatisticsConcert(CheckBox concertCheckBox, ListView concertListView){
-        this.concertCheckBox = concertCheckBox;
+    StatisticsConcert(ListView concertListView){
         this.concertListView = concertListView;
     }
 
@@ -61,7 +58,6 @@ public class StatisticsConcert implements Runnable {
             }
             scanner.close();
         }
-        System.out.println(responseConcert.toString());
         JSONParser parserConcert = new JSONParser();
         JSONArray arrayConcert = null;
         try {

@@ -10,15 +10,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../json-simple-1.1.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:18-ea+6" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:18-ea+6" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:18-ea+6" level="project" />
@@ -36,7 +27,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../json-simple-1.1.1.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/json-simple-1.1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
